@@ -21,10 +21,12 @@
 ## Usage
 
 
-```sh
+```jsx
 const bords = require('bords-utils')
+
 var arr = [1,2,3,4,5]
 var date = new Date()
+
 console.log(bords.arrReverse(arr))
 console.log(bords.formatDate(date))
 ```
