@@ -3,8 +3,22 @@
 
 ## Function Reference
 
-- getObj (object, array)
-- getURLParams (props,name)
+###### getObj (object, array) 
+  - useful when JSON response "key" has special character property (eg. _text) which is difficult to navigate using dot notation. 
+  *example JSON Response:
+  ```sh
+  "EmpInfo": {
+    "mobileNo": {
+      "_text": "12345"
+  }
+  ...
+  ```
+  ```jsx
+  const mobileNumber = getObj(empInfo, ['mobileNo', '_text'])
+  ```
+  ---
+###### getURLParams (props,name)
+
 - arrRemove (arr, value)
 - arrRemoveObj (arrObj,fprop,fval)
 - arrReverse (arr)
@@ -19,8 +33,6 @@
 - removeItemAll (arr, value)
 
 ## Usage
-
-
 ```jsx
 const bords = require('bords-utils')
 
