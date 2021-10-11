@@ -20,13 +20,13 @@
   const __BEARER      = 'SecretBearer '
   ...
 
-  // Sample Code in React
+  // Sample Code in React JS
   import * as CONSTANT from 'constants'
   import {bordsFetch} from 'bords-utils'
 
   const [value,setValue] = useState({})
   useEffect(() => {
-      //call with no options, just pass {}
+      //call with no options, just pass empty object {} to options
       bordsFetch(
         CONSTANT.__GET,
         `${__API_HOST+__API_PORT+__API_ROUTE}getCoffee`,
@@ -35,8 +35,25 @@
       ).then(setValue)
   }, [])
 
-  //sample call with options
-  const fetchOptions = {body:{id,variance},};
+  //example body options
+  const fetchOptions = {body:{
+    userId:1,
+    title: "foo",
+    body: "bar"
+    }
+  }
+
+  //example with body and headers options
+  const fetchOptions = {
+    headers:{'Custom-Header': 'hello bords'},
+    body:{
+      userId:1,
+      title: "foo",
+      body: "bar"
+    }
+  }
+
+  //sample call with fetchOptions
   bordsFetch(
     CONSTANT.__POST,
     `${__API_HOST+__API_PORT+__API_ROUTE}your_api_endpoint`,
@@ -44,7 +61,7 @@
     fetchOptions,
   )
   
-  //sample call with no token
+  //sample call with no token and no options
   bordsFetch(
     CONSTANT.__GET,
     `${__API_HOST+__API_PORT+__API_ROUTE}your_api_endpoint`,
