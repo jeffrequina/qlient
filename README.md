@@ -9,6 +9,15 @@
   ###### _No Request Headers and Authorization Headers boilerplates needed_
   ###### _just pass it as objects and just wait for the Promise response_
   
+  - Shorthand fetch, Easy to call function, just pass in the needed arguments
+  - Promise based HTTP client
+  - Uses native Fetch API (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+  - Uses Async/Await internally
+  - Can be called anywhere
+  - Supports additional Headers and Authentication
+  - Supports abort signal/fetch request cancellation (AbortController)
+  - No need for Promise chaining and nested fetch
+  
   #### constants.js
   ```jsx
   const __GET         = 'GET'
