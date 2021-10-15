@@ -1,59 +1,54 @@
 # bords-utils
 ### _A set of utility/helper functions to speed up development_
-### _These functions can be used in your React, Vue, Angular and Svelte Projects_
-
+### _Use this in your React, Vue, Angular, Solid and Svelte Projects_
 
 # Usage
-## bordsFetch (methodType,apiUrl,authtoken,options) 
-  ###### _Save hundred lines of code with this fully flexible promise base fetching method_
-  ###### _No Request Headers and Authorization Headers boilerplates needed_
-  ###### _just pass it as objects and just wait for the Promise response_
+## bordsFetch (methodType,apiUrl,authtoken,options,signal)   
   
-  - Shorthand fetch, Easy to call function, just pass in the needed arguments
-  - Promise based HTTP client
+  ### _More Cleaner, More Modern & Concise Fetch! NO BOILERPLATE NEEDED!_
+  
+  #### Key Features
+  - Save hundred lines of code setting up fetching method boilerplates
+  - Easy to use Promise based HTTP client, shorthand fetch
   - Uses native Fetch API (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
   - Uses Async/Await internally
-  - Can be called anywhere
-  - Supports additional Headers and Authentication
+  - Can be called anywhere (eg. helpers, components and state manager)
+  - Supports additional arguments for Headers and Authentication
   - Supports abort signal/fetch request cancellation (AbortController)
-  - No need for Promise chaining and nested fetch
-  
+  - Supports Promise chaining or nested fetch
+  - Auto-detects API response between json and plain text
+
   #### constants.js
   ```jsx
-  const __GET         = 'GET'
-  const __POST        = 'POST'
-  const __DELETE      = 'DELETE'
-  const __PUT         = 'PUT'
-  const __API_HOST    = 'http://localhost:'
-  const __API_PORT    = '3000'
-  const __API_ROUTE   = '/api/'
-  const __BEARER      = 'SecretBearer '
+    export const __API_ROUTE   = 'http://localhost:3000/api'
+    export const __BEARER      = 'SecretBearer '
   ...
   ```
   #### your-component.js
   ```jsx
-  // Sample Code in React JS
-  import * as CONSTANT from 'constants'
-  import {bordsFetch} from 'bords-utils'
+    // Sample Code in React JS
+    import * as CONSTANT from 'constants'
+    import {bordsFetch} from 'bords-utils'
 
-  const [value,setValue] = useState({})
-  useEffect(() => {
-      //call with no options, just pass empty object {} to options
-      bordsFetch(
-        CONSTANT.__GET,
-        `${__API_HOST+__API_PORT+__API_ROUTE}getCoffee`,
-        `${__BEARER}<api-token>`,
-        {},
-      ).then(setValue)
-  }, [])
+    const [value,setValue] = useState({})
+    useEffect(() => {
+        //call with no options, just pass empty object {} to options
+        bordsFetch(
+          'GET',
+          `${CONSTANT.__API_ROUTE}/getCoffee`,
+          `${CONSTANT.__BEARER}<api-token>`,
+          {}).then(setValue)
+    }, [])
   ```
 
+  #### Other example usage:
   ```jsx
   //example body options
-  const fetchOptions = {body:{
-    userId:1,
-    title: "foo",
-    body: "bar"
+  const fetchOptions = {
+    body:{
+      userId  : 1,
+      title   : "foo",
+      body    : "bar"
     }
   }
 
@@ -69,22 +64,70 @@
 
   //sample call with fetchOptions
   bordsFetch(
-    CONSTANT.__POST,
-    `${__API_HOST+__API_PORT+__API_ROUTE}your_api_endpoint`,
-    `${__BEARER}<api-token>`,
-    fetchOptions,
-  )
+    'POST',
+    `${CONSTANT.__API_ROUTE}/your_api_endpoint`,
+    `${CONSTANT.__BEARER}<api-token>`,
+    fetchOptions).then(...)
   ```
 
   ```jsx
   //sample call with no token and no options
-  bordsFetch(
-    CONSTANT.__GET,
-    `${__API_HOST+__API_PORT+__API_ROUTE}your_api_endpoint`,
-    {},
-    {},
-  )
+  bordsFetch('GET',`${CONSTANT.__API_ROUTE}/your_api_endpoint`,{},{}).then(...)
   ```
+
+  ```jsx
+  //sample call for Request Cancellation or Aborting Signal
+  const controller = new AbortController()
+  const signal = controller.signal
+  ...
+  bordsFetch('GET',`${CONSTANT.__API_ROUTE}/your_api_endpoint`,{},{},{signal}).then(...)
+  ...
+  //calling abort() cancels the fetch request
+  controller.abort() 
+  ```
+
+  #### helper-sample.js
+  ```jsx
+  //sample call inside an external helper
+  export const fetchDDLOptions = async (authToken) => {  
+    try {   
+      let ddlOptions = [];    
+
+      bordsFetch(
+        'POST', 
+        `${CONSTANT.__API_ROUTE}/your_api_endpoint`, 
+        `${CONSTANT.__BEARER}${authToken}`, 
+        {}).then(items=> {      
+              items.forEach(element => {
+                let ddlList = { value: element["id"], label: element["description"] }
+                ddlOptions.push(ddlList)          
+              });
+            }) 
+      return ddlOptions
+
+    } catch (err) { console.log(err) }
+  }
+  ```
+
+  #### async-helper-sample.js
+  ```jsx
+  //sample call inside an external helper with async/await function
+  export const fetchUserCount = async (authToken, userID, userName) => {  
+    try {   
+      const fetchOptions = {body: {userID,userName},};
+
+      let result = await bordsFetch(
+        'POST', 
+        `${CONSTANT.__API_ROUTE}/your_api_endpoint`, 
+        `${CONSTANT.__BEARER}${authToken}`, 
+        fetchOptions)
+
+      return result[0]
+
+    } catch (bords_err) { console.log(bords_err) }
+  }
+  ```
+
 ---
 ## getObj (object, array) 
   ###### useful when JSON response "keys" has special character property (eg. _text) which is difficult to navigate using dot notation.
@@ -111,8 +154,10 @@
   ```
 ---
 ## arrRemove (arr, value)
+###### Remove a value in an array.
 ---
 ## arrRemoveObj (arrObj,fprop,fval)
+###### Remove a value in an array object base of prop and value
 ---
 ## arrReverse (arr)
   ###### Reverse array from ascending to descending and vice versa
