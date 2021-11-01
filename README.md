@@ -1,9 +1,12 @@
-# bords-utils
 ### _A set of utility/helper functions to speed up development_
-### _Use this in your React, Vue, Angular, Solid and Svelte Projects_
+### _Use this in your React, Vue, Angular, Solid, & Svelte Projects_
 
-# Usage
-## bordsFetch (methodType,apiUrl,authtoken,options,signal)   
+# Installation
+```jsx
+  npm i bords-utils
+```
+
+## bordsFetch ( methodType, apiUrl, authtoken, options, signal )   
   
   ### _More Cleaner, More Modern & Concise Fetch! NO BOILERPLATE NEEDED!_
   
@@ -18,26 +21,42 @@
   - Supports Promise chaining or nested fetch
   - Auto-detects API response between json and plain text
 
+  ### Basic Usage
+  ```jsx
+    bordsFetch('GET','https://jsonplaceholder.typicode.com/posts/1',{},{},{})
+    .then(res => console.log(res))
+
+    // OR Async/Await below:
+
+    const fetchData = async () => {
+      let result = await bordsFetch('GET','https://jsonplaceholder.typicode.com/posts/1',{},{},{})
+      console.log({result})
+    }
+  ```
+
+  ### Advance Usage
   #### constants.js
   ```jsx
     export const __API_ROUTE   = 'http://localhost:3000/api'
     export const __BEARER      = 'SecretBearer '
-  ...
+    ...
   ```
   #### your-component.js
   ```jsx
     // Sample Code in React JS
     import * as CONSTANT from 'constants'
-    import {bordsFetch} from 'bords-utils'
+    import { bordsFetch } from 'bords-utils'
 
     const [value,setValue] = useState({})
     useEffect(() => {
-        //call with no options, just pass empty object {} to options
+        //call with no options, just pass empty object {} to token, options & signal
         bordsFetch(
-          'GET',
-          `${CONSTANT.__API_ROUTE}/getCoffee`,
-          `${CONSTANT.__BEARER}<api-token>`,
-          {}).then(setValue)
+          'GET',                                // request method
+          `${CONSTANT.__API_ROUTE}/gettodos`,   // api URL
+          `${CONSTANT.__BEARER}<api-token>`,    // Bearer Token
+          {},                                   // fetch options, body AND/OR headers
+          {}                                    // signal
+        ).then(setValue)
     }, [])
   ```
 
@@ -67,12 +86,13 @@
     'POST',
     `${CONSTANT.__API_ROUTE}/your_api_endpoint`,
     `${CONSTANT.__BEARER}<api-token>`,
-    fetchOptions).then(...)
+    fetchOptions,
+    {}).then(...)
   ```
 
   ```jsx
-  //sample call with no token and no options
-  bordsFetch('GET',`${CONSTANT.__API_ROUTE}/your_api_endpoint`,{},{}).then(...)
+  //sample call with no token, no options, & no signal
+  bordsFetch('GET',`${CONSTANT.__API_ROUTE}/your_api_endpoint`,{},{},{}).then(...)
   ```
 
   ```jsx
@@ -97,6 +117,7 @@
         'POST', 
         `${CONSTANT.__API_ROUTE}/your_api_endpoint`, 
         `${CONSTANT.__BEARER}${authToken}`, 
+        {},
         {}).then(items=> {      
               items.forEach(element => {
                 let ddlList = { value: element["id"], label: element["description"] }
@@ -120,7 +141,8 @@
         'POST', 
         `${CONSTANT.__API_ROUTE}/your_api_endpoint`, 
         `${CONSTANT.__BEARER}${authToken}`, 
-        fetchOptions)
+        fetchOptions,
+        {})
 
       return result[0]
 
@@ -225,6 +247,46 @@
 
   ```jsx
   waitInSeconds(3000) //delay for 3 seconds
+  ```
+---
+## toggleInt (int)
+  ```jsx
+    toggleInt(1) //returns 0
+    toggleInt(0) //returns 1
+  ```
+---
+## toggleBoolean (bool)
+  ```jsx
+    toggleBoolean(false) //returns true
+    toggleBoolean(true) //returns false
+  ```
+---
+## capitalizeFirstLetter (stringVal)
+  ```jsx
+    capitalizeFirstLetter('THE QUICK BROWN FOX') //returns 'The Quick Brown Fox'
+    capitalizeFirstLetter('the quick brown fox') //returns 'The Quick Brown Fox'
+  ```
+---
+## extractTime (timeStamp)
+  ```jsx
+    extractTime("2021-11-01T11:33:29.320+04:00") //returns 11:33:29 AM
+  ```
+---
+## calcPercOnNum (x,y)
+  ```jsx
+    calcPercOnNum(10,10) returns 100
+    calcPercOnNum(50,100) returns 50
+  ```
+---
+## getTotalSecondsByTimeDiff (startTime, endTime)
+  ```jsx
+    let inTime = "06:30:04"
+    let outTime = "16:04:14"
+    getTotalSecondsByTimeDiff(inTime,outTime)
+
+    //1 day is to 86400 seconds
+    //8 Hours of work is to 28800 seconds
+    calcPercOnNum(getTotalSecondsByTimeDiff(inTime, outTime), 28800).toFixed(0) + '%' //returns 120%
   ```
 ---
 
