@@ -33,7 +33,7 @@
   npm i bords-utils
 ```
 
-## [bordsFetch](methodType, apiUrl, authtoken, options, signal)(#bordsFetch)   
+## [bordsFetch(methodType, apiUrl, authtoken, options, signal)](#bordsFetch)   
   
   ### _More Cleaner, More Modern & Concise Fetch! NO BOILERPLATE NEEDED!_
   
@@ -48,7 +48,7 @@
   - Supports Promise chaining or nested fetch
   - Auto-detects API response between json and plain text
 
-  ### Basic Usage(#basic-usage)
+  ### [Basic Usage](#basic-usage)
   ```jsx
     bordsFetch('GET','https://jsonplaceholder.typicode.com/posts/1',{},{},{})
     .then(res => console.log(res))
@@ -61,7 +61,7 @@
     }
   ```
 
-  ### Advanced Usage(#adv-usage)
+  ### [Advanced Usage](#adv-usage)
   #### constants.js
   ```jsx
     export const __API_ROUTE   = 'http://localhost:3000/api'
@@ -178,7 +178,7 @@
   ```
 
 ---
-## [getObj](object, array)(#getObj) 
+## [getObj(object, array)](#getObj) 
   ###### useful when JSON response "keys" has special character property (eg. _text) which is difficult to navigate using dot notation.
   
   ```sh
@@ -193,7 +193,7 @@
   const mobileNumber = getObj(empInfo, ['mobileNo', '_text'])
   ```
 ---
-## [getURLParams](props,name)(#getURLParams)
+## [getURLParams(props,name)](#getURLParams)
   ###### function to read URL Query parameters. 
   ###### argument props - is your browser's object that contains history and location.
   ###### argument name - is the URL key (eg. localhost/?Name=bords)
@@ -202,13 +202,13 @@
   let queryURL = getURLParams(props,'Name') 
   ```
 ---
-## [arrRemove](arr, value)(#arrRemove)
+## [arrRemove(arr, value)](#arrRemove)
 ###### Remove a value in an array.
 ---
-## [arrRemoveObj](arrObj,fprop,fval)(#arrRemoveObj)
+## [arrRemoveObj(arrObj,fprop,fval)](#arrRemoveObj)
 ###### Remove a value in an array object base of prop and value
 ---
-## [arrReverse](arr)(#arrReverse)
+## [arrReverse(arr)](#arrReverse)
   ###### Reverse array from ascending to descending and vice versa
   ###### Useful for reversing html list elements order inside Object .map
 
@@ -223,29 +223,29 @@
     console.log(arrReverse([1,2,3,4,5]))
   ```
 ---
-## [removeItemOnce](arr, value)(#removeItemOnce) 
+## [removeItemOnce(arr, value)](#removeItemOnce) 
 ---
-## [removeItemAll](arr, value)(#removeItemAll)
+## [removeItemAll(arr, value)](#removeItemAll)
 ---
-## [clearCacheData]()(#clearCacheData)
+## [clearCacheData()](#clearCacheData)
   ```jsx
   //clears console logs, etc.
   clearCacheData()
   ```
 ---
-## [formatDate](date)(#formatDate)
+## [formatDate(date)](#formatDate)
   ```jsx
   let today = new Date()
   formatDate(today)
   ```
 ---
-## [formateDate2](datestring)(#formateDate2)
+## [formateDate2(datestring)](#formateDate2)
   ```jsx
   let today = new Date()
   formateDate2(today)
   ```
 ---
-## [formatDateMiddleEastern](date)(#formatDateMiddleEastern)
+## [formatDateMiddleEastern(date)](#formatDateMiddleEastern)
   ```jsx
   let today = new Date()
   formatDateMiddleEastern(today)
@@ -253,13 +253,13 @@
   const expirydate = formatDateMiddleEastern(getObj(data, ['expirydate', '_text']));
   ```
 ---
-## [getDayName](dateStr, locale)(#getDayName)
+## [getDayName(dateStr, locale)](#getDayName)
   ```jsx
   let today = new Date()
   getDayName(today, 'en-US')
   ```
 ---
-## [counterAnimation](id, start, end, duration)(#counterAnimation)
+## [counterAnimation(id, start, end, duration)](#counterAnimation)
   ```jsx
   import counterAnimation from 'bords-utils'
   counterAnimation("count1", 0, data.total, 2000);
@@ -269,43 +269,43 @@
   </div>
   ```
 ---
-## [waitInSeconds](seconds)(#waitInSeconds)
+## [waitInSeconds(seconds)](#waitInSeconds)
   ###### delay timer sometimes comes in handy while processing something on the background
 
   ```jsx
   waitInSeconds(3000) //delay for 3 seconds
   ```
 ---
-## [toggleInt](int)(#toggleInt)
+## [toggleInt(int)](#toggleInt)
   ```jsx
     toggleInt(1) //returns 0
     toggleInt(0) //returns 1
   ```
 ---
-## [toggleBoolean](bool)(#toggleBoolean)
+## [toggleBoolean(bool)](#toggleBoolean)
   ```jsx
     toggleBoolean(false) //returns true
     toggleBoolean(true) //returns false
   ```
 ---
-## [capitalizeFirstLetter](stringVal)(#capitalizeFirstLetter)
+## [capitalizeFirstLetter(stringVal)](#capitalizeFirstLetter)
   ```jsx
     capitalizeFirstLetter('THE QUICK BROWN FOX') //returns 'The Quick Brown Fox'
     capitalizeFirstLetter('the quick brown fox') //returns 'The Quick Brown Fox'
   ```
 ---
-## [extractTime](timeStamp)(#extractTime)
+## [extractTime(timeStamp)](#extractTime)
   ```jsx
     extractTime("2021-11-01T11:33:29.320+04:00") //returns 11:33:29 AM
   ```
 ---
-## [calcPercOnNum](x,y)(#calcPercOnNum)
+## [calcPercOnNum(x,y)](#calcPercOnNum)
   ```jsx
     calcPercOnNum(10,10) returns 100
     calcPercOnNum(50,100) returns 50
   ```
 ---
-## [getTotalSecondsByTimeDiff](startTime, endTime)(#getTotalSecondsByTimeDiff)
+## [getTotalSecondsByTimeDiff(startTime, endTime)](#getTotalSecondsByTimeDiff)
   ```jsx
     let inTime = "06:30:04"
     let outTime = "16:04:14"
