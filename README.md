@@ -1,8 +1,3 @@
-## [Installation](#installation)
-```jsx
-  npm i qlient
-```
-
 ### _Promise based HTTP Client for all your API invocation needs_
 ### _Use this in your React, Vue, Angular, Solid, Svelte or any Javascript Projects_
 
@@ -124,3 +119,7 @@
 
 
 > More features will be added from time to time, please tune in!
+* Automatic retry logic
+* Timeout feature (request automatically aborts after 10 seconds?)
+* Easy integration with React Query for caching and background refetching
+* Interceptors
